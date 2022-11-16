@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>HTML 5 Boilerplate</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<div class="panel">
+		<button id="switchFrontBtn">Front Camera</button>
+		<button id="switchBackBtn">Back Camera</button>
+		<button id="snapBtn">Snap</button>
+	</div>
+	<div style="width:100%">
+		<!-- add autoplay muted playsinline for iOS -->
+		<video id="cam" autoplay muted playsinline>Not available</video>
+		<canvas id="canvas" style="display:none"></canvas>
+		<img id="photo" alt="The screen capture will appear in this box.">
+	</div>
+<script src="Admin/js/camera.js"></script>
+</body>
+
+</html>

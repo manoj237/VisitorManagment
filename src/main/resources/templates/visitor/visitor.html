@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"> </script>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<style>
+		table {
+			font-family: arial, sans-serif;
+			border-collapse: collapse;
+			width: 100%;
+		}
+
+		td,
+		th {
+			border: 1px solid #dddddd;
+			text-align: left;
+			padding: 8px;
+		}
+
+		tr:nth-child(even) {
+			background-color: #dddddd;
+		}
+	</style>
+
+	<title>VISITOR DETAILS</title>
+
+	<!-- Custom fonts for this template-->
+	<div th:replace="admin/common/layout ::links"> </div>
+
+
+
+</head>
+
+<body id="page-top" onload="visitordataget()" , "show_employee()">
+	<div class="card shadow sm-4">
+		<!-- Page Wrapper -->
+		<div id="wrapper">
+
+			<!-- Sidebar -->
+			<div th:replace="admin/common/layout ::side-bar"> </div>
+			<!-- End of Sidebar -->
+
+			<!-- Content Wrapper -->
+			<div id="content-wrapper" class="d-flex flex-column">
+
+				<!-- Main Content -->
+				<div id="content">
+
+					<!-- Topbar -->
+
+					<div th:replace="admin/common/layout ::topbar"> </div>
+					<!-- End of Topbar -->
+
+					<!-- Begin Page Content -->
+					<div class="container-fluid">
+
+						<!--  $$$$$$$   Jquery Table Start   $$$$$$$  -->
+						<div class="card shadow mb-2">
+							<div class="col-md-12">
+								<div class="row">
+									<div align="left" class="container my-2 col-6">
+										<h1>VISITOR</h1>
+
+									</div>
+
+									<div align="right" class="container my-2 col-6">
+										<button type="button" class="btn btn-outline-warning" data-toggle="modal"
+											data-target="#exampleModal">ADD VISITOR</button>
+									</div>
+									<input type="text" name=" " style="text-align: center;" id="myInput"
+										placeholder="search  names....">
+								</div>
+							</div>
+
+							<!--<div class="text-center">
+									<button class="btn btn-primary btn-md m-2" type="button" id="assign"
+										onclick="assignEmployeeDataToExcel()">Assign Visitor
+										Info</button></h4>
+
+								</div>-->
+
+						</div>
+
+
+
+
+						<table class="table table-bordered dataTable" width="80%" cellspacing="0" role="grid"
+							aria-describedby="dataTable_info" style="width: 100%;" id="myTable">
+							<thread>
+								<tr>
+									<form id='refresh'>
+
+
+										<th scope="col">Name</th>
+										<th scope="col">Email</th>
+
+
+										<th scope="col">Mobile</th>
+										<th scope="col">Reason</th>
+
+										<th scope="col">Check In</th>
+										<th scope="col">Date</th>
+										<th scope="col">Image</th>
+										<th scope="col">Action</th>
+
+
+
+									</form>
+								</tr>
+							</thread>
+							<tbody id="mytable">
+
+							</tbody>
+
+
+						</table>
+					</div>
+				</div>
+				<!--  $$$$$$$   Jquery Table End   $$$$$$$  -->
+
+
+			</div>
+			<!-- /.container-fluid -->
+
+		</div>
+		<!-- End of Main Content -->
+
+
+
+	</div>
+	<!-- End of Content Wrapper -->
+
+
+	<!-- add modal start-->
+
+
+	<!-- Button trigger modal -->
+
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Add Visitor</h5>
+					<b<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"><span
+							aria-hidden="true">&times;</span></button>
+				</div>
+				<div align="center">
+					<button type="button" class="btn btn-outline-primary" data-toggle="modal"
+						data-target="#livestream_scanner1">Capture</button>
+				</div>
+
+				<form id="addv">
+					<div class="modal-body">
+						<div class="form-group">
+							<label>Name</label> <!-- onkeypress="return /^[A-Z]*$/i.test(event.key)" -->
+							<input type="text" class="form-control" name="name" placeholder="Enter Name">
+						</div>
+						<div class="form-group">
+							<label>Email</label>
+							<input type="text" class="form-control" name="email" placeholder="Enter Mail Id"
+								pattern="[^ @]*@[^ @]*">
+						</div>
+						<div class="form-group">
+							<label>Mobile</label>
+							<input type="text" class="form-control" name="mobile" placeholder="Enter Your Own Mobile No"
+								onkeypress="return /^[0-9]*$/i.test(event.key)" maxlength="10" minlength="10" required>
+						</div>
+						<div class="form-group">
+							<label>Reason</label>
+							<input type="text" class="form-control" name="purpose" placeholder="Meeting Reason">
+						</div>
+						<div class="form-group">
+							<label>Check In</label>
+							<input type="time" class="form-control" name="checkIn" placeholder="Check In">
+						</div>
+
+						<div class="form-group">
+							<label>Date</label>
+							<input type="date" class="form-control" name="date" placeholder="Date">
+						</div>
+						<div class="form-group">
+							<label>Image</label>
+							<input type="file" id="filetag">
+							<img src="{ storage_path( ).'file.jpg'}" id="preview">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary submit`">Save </button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- add modal close -->
+
+	<!-- Edit Modal Start-->
+	<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Edit Data</h5>
+					<b<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">&times;</button>
+				</div>
+				<form method="POST" id="updatevstr">
+
+					<div class="modal-body">
+						<div class="form-group">
+							<label>Name</label>
+							<input type="text" class="form-control" name="name" id="name1" placeholder="Enter Name">
+							<input type="hidden" class="form-control" name="id" id="ids" placeholder="Enter Name">
+						</div>
+						<div class="form-group">
+							<label>Email</label>
+							<input type="text" class="form-control" name="email" id="email1"
+								placeholder="Enter Mail Id">
+						</div>
+						<div class="form-group">
+							<label>Mobile</label>
+							<input type="text" class="form-control" name="mobile" id="mobile1"
+								placeholder="Enter Your Mobile No" onkeypress="return /^[0-9]*$/i.test(event.key)"
+								maxlength="10" minlength="10" required>
+						</div>
+						<div class="form-group">
+							<label>Purpose</label>
+							<input type="text" class="form-control" name="purpose" id="purpose1"
+								placeholder="Meeting Perpose">
+						</div>
+						<div class="form-group">
+							<label>Check In</label>
+							<input type="text" class="form-control" name="checkIn" id="checkIn1" placeholder="Check In">
+						</div>
+						<div class="form-group">
+							<label>Date</label>
+							<input type="date" class="form-control" name="date" id="date1" placeholder="Date">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary " id="update">Update </button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Edit Modal End-->
+
+	<!--//{{{{{{{{{{{{{{{{{{{{{{{{{{{   Camera Modal Start For Visitor Data       }}}}}}}}}}}}}}}}}}}}}}}}}}}//-->
+	<div class="modal" id="livestream_scanner1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true" align="left">&times;</span>
+				</button>
+
+				<div class="modal-header">
+					<h4 class="modal-title">Camera</h4>
+				</div>
+
+				<div style="width:70%">
+					<!-- add autoplay muted playsinline for iOS -->
+					<center><video id="cam" class="rounded-circle img-fluid" autoplay muted playsinline>Not
+							available</video>
+					</center>
+					<canvas id="canvas" style="display:none"> </canvas>
+					<img id="photo" class="rounded-circle img-fluid" style="height: 70px;width:70px;"
+						alt="The screen capture will appear in this box.">
+					<!--<input type=file value="" id="photo">-->
+
+				</div>
+				<div class="modal-body" style="position: static">
+					<div class="panel">
+						<button id="switchFrontBtn">Open Camera</button>
+						<!--<button id="switchBackBtn">Back Camera</button>-->
+						<button id="snapBtn">Snap</button>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-toggle="modal">Close</button>
+					<button type="button" class="btn btn-success" onclick="saveImage();"
+						data-dismiss="modal">Upload</button>
+				</div>
+
+			</div> <!-- /.modal-content -->
+		</div> <!-- /.modal-dialog -->
+	</div>
+	<!--//{{{{{{{{{{{{{{{{{{{{{{{{{{{   Camera Modal E For Visitor Data       }}}}}}}}}}}}}}}}}}}}}}}}}}}//-->
+
+
+
+
+
+
+
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="Admin/js/camera.js"></script>
+	<script>
+		/* Jquery datatable function start */
+		function visitordataget() {
+			//alert('this is table')
+			$.ajax({
+
+				type: 'ajax',
+				method: 'GET',
+				url: "fetch-visitor-list",
+				data: {},
+				async: false,
+				dataType: 'json',
+
+				success: function (data) {
+					var a = "";
+					//alert('table')
+					for (i = 0; i < data.length; i++) {
+
+						a += '<tr>' +
+
+
+							'<td>' + data[i].name + '</td>' +
+							'<td>' + data[i].email + '</td>' +
+
+							'<td>' + data[i].mobile + '</td>' +
+							'<td>' + data[i].purpose + '</td>' +
+							'<td>' + data[i].checkIn + '</td>' +
+							'<td>' + data[i].date + '</td>' +
+							'<td>' + data[i].image + '</td>' +
+
+							'<td>' + ' <a  id="' + data[i].id + '"  title="Edit" style=color:blue;cursor:pointer;  class=" editvstr fa fa-edit " data-toggle="modal" data-target="#editModal"  > </a>  <a id="' + data[i].id + '" title="Delete" style=color:red;cursor:pointer; class="deletevisitor fa fa-trash" >  </a>' +
+
+							'</tr>';
+					}
+					$("#mytable").html(a);
+				},
+				error: function () {
+
+					alert('Data Inserte Failed')
+
+				}
+			});
+
+		};
+
+		//   table function close //
+
+		//  add function start  //
+
+		$(document).on('submit', '#addv', function (e) {
+
+
+			e.preventDefault();
+
+			$.ajax({
+				url: "/saveVisitor",
+				method: 'POST',
+				data: new FormData(this),
+				contentType: false,
+				processData: false,
+				cache: false,
+				beforeSend: function () {
+
+					$(".submit").prop('disabled', true);
+				},
+
+				success: function (data) {
+					//	alert("Employee Added");
+					visitordataget();
+					$(".submit").prop('disabled', false);
+					$('#addv')[0].reset();
+					$('#exampleModal').modal('hide');
+
+
+
+
+
+				},
+				error: function () {
+					alert('Email Already Availble');
+				}
+			});
+
+		});
+		// add function close //
+
+		// delete function start//
+
+		$(document).on('click', '.deletevisitor', function () {
+
+			var id = this.id;
+
+
+			alert('Do you want to delete your data??')
+
+			$.ajax({
+
+				type: "GET",
+				url: "/deletevisitor",
+				data: {id: id},
+				success: function (data) {
+
+					visitordataget()
+
+				}
+			})
+		});
+		// delete function close//
+
+		// edit function //
+		$(document).on('click', '.editvstr', function () {
+			alert('do you want to edit')
+			var id = this.id;
+			//alert(id)
+
+			$.ajax({
+
+				type: 'ajax',
+				method: 'GET',
+				url: "/editvisitor",
+				data: {id: id},
+				async: false,
+				datatype: 'json',
+
+				success: function (data) {
+					//alert('editor')
+
+					$("#ids").val(data.id);
+					$("#name1").val(data.name);
+					$("#email1").val(data.email);
+					$("#mobile1").val(data.mobile);
+					$("#purpose1").val(data.purpose);
+					$("#checkIn1").val(data.checkIn);
+					$("#date1").val(data.date);
+
+				}
+			})
+		});
+
+		$("#update").click(function () {
+
+			var form = $("#updatevstr").serialize();
+			//	alert(form)
+			$.ajax({
+				url: "/updatevisitor",
+				type: "POST",
+				data: form,
+
+				success: function (data) {
+					visitordataget()
+					alert('update successfully done')
+
+				}
+			})
+		})
+
+		//  ((((((((((((((((((((((((((( employee list in visitor )))))))))))))))))))))))))))  //
+
+		function show_employee() {
+			alert('in show employee')
+			$.ajax({
+
+				type: "ajax",
+				dataType: 'json',
+				url: "/fetch-all-employee-list-in-visitor",
+				method: 'GET',
+				async: false,
+				dataType: 'json',
+				success: function (data) {
+
+					var html = '';
+
+					var i;
+
+					for (i = 0; i < data.length; i++) {
+
+						html += "<option value=" + data[i].id + ">" + data[i].name + "</option>";
+
+					}
+					$("#selectid").html(html);
+					location.reload
+				},
+				error: function () {
+
+				}
+			});
+		}
+
+		//  ((((((((((((((((((((((((((( employee list in visitor end )))))))))))))))))))))))))))  //
+
+		//  ((((((((((((((((((((((((((( search bar function start )))))))))))))))))))))))))))  //	
+		/*	const searchFun = ()=>{
+				let filter = document.getElementById('myinput').value.toUpperCase();
+				let myTable = document.getElementById('myTable');
+				let tr= myTable.getElementsByTagName('tr');
+				
+				for(var i=o; i<tr.length;i++){
+					let td=tr[i].getElementsByTagName('td')[0];
+					
+					if(td){
+						let textvalue= td.innerHTML;
+						if(textvalue.toUpperCase().indexOf(filter)>-1){
+							tr[i].style.display=" ";
+						}
+						else{
+							tr[i].style.display=" none";
+						}
+					}
+				}
+			}*/
+
+		//////////////////////////////////  html search bar funtion ends here   ////////////////////////////////////////////////////
+
+		//  ((((((((((((((((((((((((((( Search Bar By Jquery Start )))))))))))))))))))))))))))  //
+		$(document).ready(function () {
+			$("#myInput").on("keyup", function () {
+				var value = $(this).val().toLowerCase();
+				$("#myTable tr").filter(function () {
+					$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+				});
+			});
+		});
+
+
+
+		//  ((((((((((((((((((((((((((( Camera Funtion )))))))))))))))))))))))))))  //
+		function saveImage() {
+			var youtubeimgsrc = document.getElementById("photo").value;
+			alert(youtubeimgsrc)
+			alert('kkk')
+			$.ajax({
+
+				method: 'POST',
+				url: "/updating-image",
+				data: {id: id},
+				async: false,
+				dataType: 'json',
+
+				success: function (data) {
+
+					alert('ss')
+					$('#livestream_scanner1').modal('hide');
+
+				},
+				error: function () {
+					alert('error code')
+				}
+			});
+
+		};
+		//((((((((((((((((((((Camera Function Close))))))))))))))))))))
+		//(((((((((((((((((((((((((((((Showing Image Function start)))))))))))))))))))))))))))))//
+		var fileTag = document.getElementById("filetag"),
+			preview = document.getElementById("preview");
+
+		fileTag.addEventListener("change", function () {
+			changeImage(this);
+		});
+
+		function changeImage(input) {
+			var reader;
+			alert('in show employee')
+			$.ajax({
+
+				type: "ajax",
+				dataType: 'json',
+				url: "/getImage",
+				method: 'GET',
+				async: false,
+				dataType: 'json',
+				success: function (data) {
+					alert('image1')
+					if (input.files && input.files[0]) {
+						reader = new FileReader();
+
+						reader.onload = function (e) {
+							preview.setAttribute('src', e.target.result);
+						}
+
+						reader.readAsDataURL(input.files[0]);
+						visitordataget()
+					}
+				},
+				error: function () {
+					alert('error code')
+					visitordataget()
+				}
+				});
+				};
+
+		//(((((((((((((((((((((((((((((Showing Image Function close)))))))))))))))))))))))))))))//
+
+		//<<<<<<<<<<<<<<<<<<<< another function for image >>>>>>>>>>>>>>>>>>>>//
+		
+	//<<<<<<<<<<<<<<<<<<<< another function for image >>>>>>>>>>>>>>>>>>>>//
+	</script>
+
+
+	<!-- Bootstrap core JavaScript-->
+	<div th:replace="admin/common/layout::fotter"> </div>
+
+</body>
+
+</html>

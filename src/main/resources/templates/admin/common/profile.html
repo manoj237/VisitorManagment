@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Profile</title>
+
+	<!-- Custom fonts for this template-->
+	<div th:replace="admin/common/layout ::links"> </div>
+
+</head>
+
+<body id="page-top" onload="getTicketCount();getAllDashboardCount();">
+
+	<!-- Page Wrapper -->
+	<div id="wrapper">
+
+		<!-- Sidebar -->
+		<div th:replace="admin/common/layout ::side-bar"> </div>
+		<!-- End of Sidebar -->
+
+		<!-- Content Wrapper -->
+		<div id="content-wrapper" class="d-flex flex-column">
+
+			<!-- Main Content -->
+			<div id="content">
+
+				<!-- Topbar -->
+
+				<div th:replace="admin/common/layout ::topbar"> </div>
+				<!-- End of Topbar -->
+
+				<!-- Begin Page Content -->
+
+				<section style="background-color: #eee;">
+					<div class="container py-5">
+						<!--<div class="row">
+							<div class="col">
+								<nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+									<ol class="breadcrumb mb-0">
+										<li class="breadcrumb-item"><a href="#">Home</a></li>
+										<li class="breadcrumb-item"><a href="#">User</a></li>
+										<li class="breadcrumb-item active" aria-current="page">User Profile</li>
+									</ol>
+								</nav>
+							</div>
+						</div>-->
+
+						<div class="row">
+							<div class="col-lg-4">
+								<div class="card mb-4">
+									<div class="card-body text-center">
+										<img src="Admin/img/ezioadmin.jpg" alt="avatar" class="rounded-circle img-fluid"
+											style="width: 150px;">
+										<h5 class="my-3" th:text="${profile.name}">John Smith</h5>
+										<p class="text-muted mb-1" th:text="${profile.designations}">Full Stack
+											Developer
+										</p>
+										<p class="text-muted mb-4" th:text="${profile.address}">Bay Area, San Francisco,
+											CA</p>
+										<div class="d-flex justify-content-center mb-2">
+											<!--<button type="button" class="btn btn-primary">Follow</button>-->
+											<!--<button type="button" title="take a photo"
+												style=color:blue;cursor:pointer;border-color:blue; class="fa fa-camera"> 
+											</button>-->
+
+											<!--<div class="main-caption">
+												<div class="title=" take a photo"
+													style=color:blue;cursor:pointer;border-color:blue;"
+													data-toggle="modal" data-target="#livestream_scanner">Capture</div>
+											</div>-->
+										</div>
+									</div>
+								</div>
+
+							</div>
+							<div class="col-lg-8">
+								<div class="card mb-4">
+									<div class="card-body">
+										<div class="row">
+											<div class="col-sm-3">
+												<p class="mb-0">Full Name</p>
+											</div>
+											<div class="col-sm-9">
+												<p class="text-muted mb-0" th:text="${profile.name}">Johnatan Smith</p>
+											</div>
+										</div>
+										<hr>
+										<div class="row">
+											<div class="col-sm-3">
+												<p class="mb-0">Email</p>
+											</div>
+											<div class="col-sm-9">
+												<p class="text-muted mb-0" th:text="${profile.email}">
+													example@example.com</p>
+											</div>
+										</div>
+										<hr>
+										<!--<div class="row">
+											<div class="col-sm-3">
+												<p class="mb-0">Phone</p>
+											</div>
+											<div class="col-sm-9">
+												<p class="text-muted mb-0" th:text="${profile.mobile}">(097) 234-5678
+												</p>
+											</div>
+										</div>-->
+										<hr>
+										<div class="row">
+											<div class="col-sm-3">
+												<p class="mb-0">Mobile</p>
+											</div>
+											<div class="col-sm-9">
+												<p class="text-muted mb-0"
+													onkeypress="return /^[0-9]*$/i.test(event.key)" maxlength="10"
+													minlength="10" required th:text="${profile.mobile}">(098) 765-4321
+												</p>
+											</div>
+										</div>
+										<hr>
+										<div class="row">
+											<div class="col-sm-3">
+												<p class="mb-0">Role</p>
+											</div>
+											<div class="col-sm-9">
+												<p class="text-muted mb-0" th:text="${profile.role}"> </p>
+											</div>
+										</div>
+										<!--<div class="row">
+											<div class="col-sm-3">
+												<p class="mb-0">Address</p>
+											</div>
+											<div class="col-sm-9">
+												<p class="text-muted mb-0" th:text="${profile.address}">Bay Area, San
+													Francisco, CA</p>
+											</div>
+										</div>-->
+									</div>
+				                	</div>
+
+							</div>
+						</div>
+					</div>
+				</section>
+
+
+
+
+
+
+
+				<!-- Content Row -->
+
+				<div class="row">
+
+					<!-- Area Chart -->
+					<!--<div class="col-xl-8 col-lg-7">
+							<div class="card shadow mb-4">
+								<!-- Card Header - Dropdown 
+								<div
+									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+									<h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+									<div class="dropdown no-arrow">
+										<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+											data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+										</a>
+										<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+											aria-labelledby="dropdownMenuLink">
+											<div class="dropdown-header">Dropdown Header:</div>
+											<a class="dropdown-item" href="#">Action</a>
+											<a class="dropdown-item" href="#">Another action</a>
+											<div class="dropdown-divider"></div>
+											<a class="dropdown-item" href="#">Something else here</a>
+										</div>
+									</div>
+								</div>
+								<!-- Card Body 
+								<div class="card-body">
+									<div class="chart-area">
+										<canvas id="myAreaChart"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>-->
+
+					<!-- Pie Chart -->
+					<!--<div class="col-xl-4 col-lg-5">
+						<div class="card shadow mb-4">
+							<!-- Card Header - Dropdown 
+							<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+								<h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+								<div class="dropdown no-arrow">
+									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+										aria-labelledby="dropdownMenuLink">
+										<div class="dropdown-header">Dropdown Header:</div>
+										<a class="dropdown-item" href="#">Action</a>
+										<a class="dropdown-item" href="#">Another action</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="#">Something else here</a>
+									</div>
+								</div>
+							</div>
+							<!-- Card Body 
+							<div class="card-body">
+								<div class="chart-pie pt-4 pb-2">
+									<canvas id="myPieChart"></canvas>
+								</div>
+								<div class="mt-4 text-center small">
+									<span class="mr-2">
+										<i class="fas fa-circle text-primary"></i> Direct
+									</span>
+									<span class="mr-2">
+										<i class="fas fa-circle text-success"></i> Social
+									</span>
+									<span class="mr-2">
+										<i class="fas fa-circle text-info"></i> Referral
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>-->
+
+					<!-- Content Row -->
+
+
+				</div>
+				<!-- /.container-fluid -->
+
+			</div>
+			<!-- End of Main Content -->
+
+			<!-- Footer -->
+
+			<!-- End of Footer -->
+
+		</div>
+		<!-- End of Content Wrapper -->
+
+	</div>
+	<!-- End of Page Wrapper -->
+
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top">
+		<i class="fas fa-angle-up"></i>
+	</a>
+
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+					<a class="btn btn-primary" href="login.html">Logout</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Bootstrap core JavaScript-->
+	<div th:replace="admin/common/layout::fotter"> </div>
+
+	<!--{{{{{{{{{{{{{{{{{{{{{{{{ camera modal }}}}}}}}}}}}}}}}}}}}}}}}-->
+	<!--<div class="modal" id="livestream_scanner">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true" align="left">&times;</span>
+				</button>
+				<div class="modal-header">
+					<h4 class="modal-title">Camera</h4>
+				</div>
+				<form id='insert'>
+					<div style="width:70%">
+
+						<center><video id="cam" class="rounded-circle img-fluid" autoplay muted playsinline>Not
+								available</video>
+							<center>
+								<canvas id="canvas" style="display:none"></canvas>
+								<img id="photo" class="rounded-circle img-fluid" style="height: 60px;width:60px;"
+									alt="The screen capture will appear in this box.">
+
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-success" data-dismiss="modal">Upload</button>
+					</div>
+				</form>
+					<div class="modal-body" style="position: static">
+						<div class="panel">
+							<button id="switchFrontBtn">Open Camera</button>
+
+							<button id="snapBtn">Snap</button>
+						</div>
+					</div>
+					
+			</div>
+		</div>
+	</div>-->
+
+	<!--{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}-->
+
+	<script src="Admin/js/camera.js"></script>
+	<script>
+		//function saveImage() {
+		//	var youtubeimgsrc = document.getElementById("photo").src;
+		//	alert(youtubeimgsrc)
+
+		
+	</script>
+	<div th:replace="admin/common/layout::fotter"> </div>
+</body>
+
+</html>
